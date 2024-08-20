@@ -7,7 +7,8 @@ from langchain.agents.format_scratchpad.openai_tools import (
 from langchain_openai import ChatOpenAI
 
 from toddgpt.prompt import SYSTEM_PROMPT
-from toddgpt.tools.interface import Interface
+# from toddgpt.tools.interface import Interface
+from toddgpt.tools.interface import get_distances, read_geometry_from_file, extract_molecule_from_pubchem
 
 
 class Agent:
@@ -49,7 +50,8 @@ class Agent:
         else:
             raise ValueError("Unsupported API provider")
 
-        tools = [Interface()]
+        # tools = [Interface()]
+        tools = [get_distances, read_geometry_from_file, extract_molecule_from_pubchem]
         llm_with_tools = llm.bind_tools(tools)
         agent = (
             {
