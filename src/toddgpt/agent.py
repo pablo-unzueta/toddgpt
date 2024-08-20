@@ -1,6 +1,5 @@
 from langchain.agents import AgentExecutor
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
-# TODO: resolve this import ^^
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.agents.format_scratchpad.openai_tools import (
     format_to_openai_tool_messages,
@@ -8,11 +7,18 @@ from langchain.agents.format_scratchpad.openai_tools import (
 from langchain_openai import ChatOpenAI
 
 from toddgpt.prompt import SYSTEM_PROMPT
-from toddgpt.tools.interface import get_distances
+from toddgpt.tools.interface import Interface
 
 
 class Agent:
-    def __init__(self, api_provider, api_key, api_url=None, api_model=None, api_temperature=0):
+    def __init__(
+        self,
+        api_provider,
+        api_key,
+        api_url=None,
+        api_model="gpt-4o-mini",
+        api_temperature=0,
+    ):
         self.api_provider = api_provider
         self.api_key = api_key
         self.api_url = api_url
@@ -21,11 +27,17 @@ class Agent:
 
     def get_executor(self):
         if self.api_provider.lower() == "openai":
-            from langchain_openai import ChatOpenAI
-            if self.api_model is None:
-                self.api_model = "gpt-4"
+            supported_models = ["gpt-4", "gpt-4o-mini"]
+            if self.api_model not in supported_models:
+                raise ValueError(
+                    f"Unsupported OpenAI model: {self.api_model}. Supported models are: {', '.join(supported_models)}"
+                )
+
             llm = ChatOpenAI(
-                model=self.api_model, temperature=self.api_temperature, openai_api_key=self.api_key, base_url=self.api_url,
+                model=self.api_model,
+                temperature=self.api_temperature,
+                openai_api_key=self.api_key,
+                base_url=self.api_url,
             )
             prompt = ChatPromptTemplate.from_messages(
                 [
@@ -37,7 +49,7 @@ class Agent:
         else:
             raise ValueError("Unsupported API provider")
 
-        tools = [get_distances]
+        tools = [Interface()]
         llm_with_tools = llm.bind_tools(tools)
         agent = (
             {
@@ -51,8 +63,3 @@ class Agent:
             | OpenAIToolsAgentOutputParser()
         )
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
-
-if __name__ == "__main__":
-    agent = Agent("openai", "test_api_key")
-    executor = agent.get_executor()
-    print(executor)
