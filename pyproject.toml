@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.9.16"
+python = "^3.9.16"
 openai = "^1.41.0"
 ase = "^3.23.0"
 pytest = "^8.3.2"
