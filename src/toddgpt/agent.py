@@ -7,8 +7,8 @@ from langchain.agents.format_scratchpad.openai_tools import (
 )
 from langchain_openai import ChatOpenAI
 
-from .prompt import SYSTEM_PROMPT
-from .tools.interface import get_distances
+from toddgpt.prompt import SYSTEM_PROMPT
+from toddgpt.tools.interface import get_distances
 
 
 class Agent:
@@ -51,3 +51,8 @@ class Agent:
             | OpenAIToolsAgentOutputParser()
         )
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+if __name__ == "__main__":
+    agent = Agent("openai", "test_api_key")
+    executor = agent.get_executor()
+    print(executor)

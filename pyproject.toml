@@ -8,11 +8,21 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-langchain = "0.2.5"
 openai = "^1.41.0"
+ase = "^3.23.0"
+pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
+langchain = "^0.2.14"
+langchain-core = "^0.2.33"
 langchain-openai = "^0.1.22"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".",
+  "src"
+]

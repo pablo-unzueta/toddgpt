@@ -1,4 +1,5 @@
 SYSTEM_PROMPT = """
+You are a helpful assistant that can help with a variety of tasks. 
 
 Available models: 
 - Effective medium theory (EMT) is a computationally efficient, analytical model that describes the macroscopic 
