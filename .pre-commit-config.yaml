@@ -7,7 +7,7 @@ repos:
       - id: check-yaml
         exclude: mkdocs.yml
       - id: check-added-large-files
-        args: ["--maxkb=250"]
+        args: ["--maxkb=300"]
         exclude: ^docs/visualizations/.*
 
   - repo: https://github.com/Yelp/detect-secrets
@@ -15,7 +15,11 @@ repos:
     hooks:
       - id: detect-secrets
         stages: [commit]
-        exclude: '.*\.(lock|ipynb)$'
+        exclude: |
+          (?x)^(
+            .*\.(lock|ipynb)$|
+            src/toddgpt/tools/input_examples\.py
+          )$
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     # Ruff version.
     rev: "v0.6.1"

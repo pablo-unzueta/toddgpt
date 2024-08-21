@@ -1,7 +1,8 @@
-import pytest
-from unittest.mock import patch, MagicMock
 import os
+from unittest.mock import MagicMock, patch
+
 from langchain.agents import AgentExecutor
+
 from toddgpt.agent import Agent
 
 
@@ -14,9 +15,9 @@ def test_agent_initialization():
         api_temperature=0.5,
     )
 
-    assert agent.api_provider == "openai"
-    assert agent.api_key == "test_api_key"
-    assert agent.api_url == "https://test.com"
+    assert agent.api_provider == "openai"  # pragma: allowlist secret
+    assert agent.api_key == "test_api_key"  # pragma: allowlist secret
+    assert agent.api_url == "https://test.com"  # pragma: allowlist secret
     assert agent.api_model == "gpt-3.5-turbo"
     assert agent.api_temperature == 0.5
 
@@ -31,7 +32,10 @@ def test_get_executor_openai(mock_chat_openai):
 
     assert isinstance(executor, AgentExecutor)
     mock_chat_openai.assert_called_once_with(
-        model="gpt-4", temperature=0, openai_api_key=os.environ.get("OPENAI_API_KEY"), base_url=None
+        model="gpt-4",
+        temperature=0,
+        openai_api_key=os.environ.get("OPENAI_API_KEY"),
+        base_url=None,
     )
 
 

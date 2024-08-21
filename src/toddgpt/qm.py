@@ -1,18 +1,8 @@
-from langchain.agents import AgentExecutor
-from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.agents.format_scratchpad.openai_tools import (
-    format_to_openai_tool_messages,
-)
-from langchain_openai import ChatOpenAI
-
-from toddgpt.prompt import SYSTEM_PROMPT
-from toddgpt.tools.interface import get_distances, read_geometry_from_file, extract_molecule_from_pubchem
-
-import subprocess
-from typing import Dict, Any
 import os
+import subprocess
 from string import Template
+from typing import Any, Dict
+
 
 class QMCalculator:
     def __init__(self, model: str, template_file: str):
@@ -26,14 +16,14 @@ class QMCalculator:
         if not os.path.exists(self.template_file):
             raise FileNotFoundError(f"Template file {self.template_file} not found.")
 
-        with open(self.template_file, 'r') as template_file:
+        with open(self.template_file, "r") as template_file:
             template_content = template_file.read()
 
         template = Template(template_content)
-        
+
         # Combine molecule and parameters into a single dictionary
-        input_data = {'molecule': molecule, **parameters}
-        
+        input_data = {"molecule": molecule, **parameters}
+
         # Substitute placeholders in the template with actual values
         input_content = template.safe_substitute(input_data)
 
@@ -43,7 +33,12 @@ class QMCalculator:
     def run_calculation(self) -> None:
         """Run QM calculation via command line."""
         try:
-            subprocess.run([self.model, self.input_file], check=True, capture_output=True, text=True)
+            subprocess.run(
+                [self.model, self.input_file],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
         except subprocess.CalledProcessError as e:
             print(f"Error running calculation: {e}")
             print(f"Stdout: {e.stdout}")
@@ -51,7 +46,7 @@ class QMCalculator:
 
     def read_output(self) -> Dict[str, Any]:
         """Read and parse output file from QM calculation."""
-        results = {}
+        results: Dict[str, Any] = {}
         # TODO: Implement output parsing logic
         with open(self.output_file, "r") as f:
             for line in f:
@@ -60,7 +55,9 @@ class QMCalculator:
                 pass
         return results
 
-    def perform_calculation(self, molecule: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
+    def perform_calculation(
+        self, molecule: str, parameters: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Perform full QM calculation workflow."""
         self.write_input(molecule, parameters)
         self.run_calculation()

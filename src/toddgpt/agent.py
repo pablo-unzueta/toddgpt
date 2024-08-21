@@ -1,14 +1,18 @@
 from langchain.agents import AgentExecutor
-from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
+from langchain.agents.format_scratchpad.openai_tools import \
+    format_to_openai_tool_messages
+from langchain.agents.output_parsers.openai_tools import \
+    OpenAIToolsAgentOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.agents.format_scratchpad.openai_tools import (
-    format_to_openai_tool_messages,
-)
 from langchain_openai import ChatOpenAI
 
 from toddgpt.prompt import SYSTEM_PROMPT
 # from toddgpt.tools.interface import Interface
-from toddgpt.tools.interface import get_distances, read_geometry_from_file, extract_molecule_from_pubchem
+from toddgpt.tools.interface import (extract_molecule_from_pubchem,
+                                     get_distances, get_terachem_input_example,
+                                     list_terachem_input_examples,
+                                     read_geometry_from_file,
+                                     return_terachem_input)
 
 
 class Agent:
@@ -51,7 +55,14 @@ class Agent:
             raise ValueError("Unsupported API provider")
 
         # tools = [Interface()]
-        tools = [get_distances, read_geometry_from_file, extract_molecule_from_pubchem]
+        tools = [
+            get_distances,
+            read_geometry_from_file,
+            extract_molecule_from_pubchem,
+            return_terachem_input,
+            list_terachem_input_examples,
+            get_terachem_input_example,
+        ]
         llm_with_tools = llm.bind_tools(tools)
         agent = (
             {
