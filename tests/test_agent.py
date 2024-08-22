@@ -27,7 +27,7 @@ def test_get_executor_openai(mock_chat_openai):
     mock_llm = MagicMock()
     mock_chat_openai.return_value = mock_llm
 
-    agent = Agent("openai", os.environ.get("OPENAI_API_KEY"))
+    agent = Agent("openai", os.environ.get("OPENAI_API_KEY"), api_model="gpt-4")
     executor = agent.get_executor()
 
     assert isinstance(executor, AgentExecutor)
@@ -35,7 +35,7 @@ def test_get_executor_openai(mock_chat_openai):
         model="gpt-4",
         temperature=0,
         openai_api_key=os.environ.get("OPENAI_API_KEY"),
-        base_url=None,
+        base_url=None
     )
 
 
