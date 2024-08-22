@@ -20,6 +20,11 @@ ruff = "^0.6.1"
 types-requests = "^2.32.0.20240712"
 mypy = "^1.11.1"
 isort = "^5.13.2"
+chemcloud = "^0.12.0"
+qcparse = "^0.6.2"
+qcop = "^0.8.1"
+qcio = {git = "https://github.com/pablo-unzueta/qcio"}
+mace-torch = "^0.3.6"
 
 
 [tool.poetry.group.dev.dependencies]
