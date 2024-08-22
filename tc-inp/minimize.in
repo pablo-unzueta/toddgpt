@@ -1,0 +1,29 @@
+coordinates     coords.xyz
+charge          0
+spinmult        1
+
+basis           def2-svp
+method          wpbe
+rc_w            0.3
+threall         1e-14
+precision       double
+convthre        1e-7
+maxit           100
+guess           sad
+purify          yes
+
+#CIS
+
+cis             yes
+cisnumstates    5
+cisguessvecs    5
+cistarget       1
+cismaxiter      100
+
+run               minimize
+
+nacstate1         0
+nacstate2         1
+nacstatemult1     1
+
+end
