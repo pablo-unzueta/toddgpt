@@ -1,3 +1,5 @@
+[![Code Coverage](https://codecov.io/gh/pablo-unzueta/toddgpt/branch/main/graph/badge.svg)](https://codecov.io/gh/pablo-unzueta/toddgpt)
+
 # Todd-GPT
 
 A LLM-agent for Excited State Chemistry Simulations
