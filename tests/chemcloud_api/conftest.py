@@ -1,0 +1,1 @@
+collect_ignore = ["test_chemcloud_api.py"]
