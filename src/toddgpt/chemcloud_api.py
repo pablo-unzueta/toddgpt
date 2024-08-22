@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 # print(f"Python path: {sys.path}")
 from ase import units
+from langchain.agents import tool
 from qcio import FileInput, ProgramOutput, Structure
 
 from toddgpt.tools.datatypes import AtomsDict
@@ -15,14 +16,22 @@ try:
 except ImportError as e:
     print(f"Import error: {e}")
 
+from typing import Optional
+
+# Global variable to store the client
+_chemcloud_client: Optional[CCClient] = None
+
 
 def setup_terachem_qcio(tc_input: str, atoms_dict: AtomsDict) -> FileInput:
+    """
+    Useful for creating a FileInput object for run_terachem.
+    """
     # Create Structure object from atoms_dict
     structure = Structure(
         symbols=atoms_dict.symbols,
         geometry=np.array(atoms_dict.positions) / units.Bohr,
     )
-    tc_input = Path(tc_input).read_text()
+    # tc_input = Path(tc_input).read_text()
     xyz_str = structure.to_xyz()  # type: ignore
     # Create a FileInput object for TeraChem
     file_inp = FileInput(
@@ -31,25 +40,41 @@ def setup_terachem_qcio(tc_input: str, atoms_dict: AtomsDict) -> FileInput:
     return file_inp
 
 
-def run_terachem(file_inp: FileInput) -> str:
+@tool
+def run_terachem(tc_input: str, atoms_dict: AtomsDict) -> str:
+    """
+    Useful for running a TeraChem calculation.
+    """
+    global _chemcloud_client
+    if _chemcloud_client is None:
+        _chemcloud_client = initialize_chemcloud_client("")
+
     # This will write the files to disk in a temporary directory and then run
     # "terachem tc.in" in that directory.
-    future_result = client.compute("terachem", file_inp, collect_files=True)
+    file_inp = setup_terachem_qcio(tc_input, atoms_dict)
+    future_result = _chemcloud_client.compute("terachem", file_inp, collect_files=True)
     prog_output: ProgramOutput = future_result.get()
     # ProgramOutput object containing all returned data
     return prog_output.stdout
 
 
-# Create a function to initialize and configure the client
-def initialize_chemcloud_client():
-    client = CCClient()
+@tool
+def initialize_chemcloud_client(tool_input: str = "") -> CCClient:
+    """
+    Useful for initializing the ChemCloud client. Use this before run_terachem and setup_terachem_qcio.
+    """
+    global _chemcloud_client
 
-    if "CHEMCLOUD_USER" not in os.environ:
-        print(
-            "CHEMCLOUD_USER environment variable not set. Please set it for future use."
-        )
-        client.configure()  # only run this if CHEMCLOUD_USER is not set
-    return client
+    if _chemcloud_client is None:
+        _chemcloud_client = CCClient()
+
+        if "CHEMCLOUD_USER" not in os.environ:
+            print(
+                "CHEMCLOUD_USER environment variable not set. Please set it for future use."
+            )
+            _chemcloud_client.configure()  # only run this if CHEMCLOUD_USER is not set
+
+    return _chemcloud_client
 
 
 # Example usage
