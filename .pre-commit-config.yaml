@@ -39,7 +39,7 @@ repos:
     rev: v1.23.6
     hooks:
       - id: typos
-        exclude: constants\.py$
+        exclude: datatypes\.py$
   - repo: local
     hooks:
       - id: tests
