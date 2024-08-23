@@ -1,2 +1,5 @@
 [default.extend-words]
 parm = "parm"
+
+[files]
+extend-exclude = ["tests/test_terachem_input_analyzer.py"]
