@@ -1,5 +1,6 @@
 [![Code Coverage](https://codecov.io/gh/pablo-unzueta/toddgpt/branch/main/graph/badge.svg)](https://codecov.io/gh/pablo-unzueta/toddgpt)
 [![CircleCI](https://circleci.com/gh/pablo-unzueta/toddgpt.svg?style=shield)](https://circleci.com/gh/pablo-unzueta/toddgpt)
+[![CodeClimate](https://codeclimate.com/github/pablo-unzueta/toddgpt/badges/gpa.svg)](https://codeclimate.com/github/pablo-unzueta/toddgpt)
 [![Version](https://img.shields.io/github/v/release/pablo-unzueta/toddgpt)](https://github.com/pablo-unzueta/toddgpt/releases)
 [![License](https://img.shields.io/github/license/pablo-unzueta/toddgpt)](https://github.com/pablo-unzueta/toddgpt/blob/main/LICENSE)
 [![Documentation](https://readthedocs.org/projects/toddgpt/badge/?version=latest)](https://toddgpt.readthedocs.io/en/latest/?badge=latest)
