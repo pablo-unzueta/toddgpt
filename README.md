@@ -5,9 +5,8 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/pablo-unzueta/toddgpt/badge.svg)](https://snyk.io/test/github/pablo-unzueta/toddgpt)
 [![License](https://img.shields.io/github/license/pablo-unzueta/toddgpt)](https://github.com/pablo-unzueta/toddgpt/blob/main/LICENSE)
 [![Documentation](https://readthedocs.org/projects/toddgpt/badge/?version=latest)](https://toddgpt.readthedocs.io/en/latest/?badge=latest)
-[![Docker](https://img.shields.io/docker/pulls/pablounzueta/toddgpt.svg)](https://hub.docker.com/r/pablounzueta/toddgpt)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/pablounzueta/toddgpt?sort=date)](https://hub.docker.com/r/pablounzueta/toddgpt)
 [![Docker Image Size](https://img.shields.io/docker/image-size/pablounzueta/toddgpt/latest)](https://hub.docker.com/r/pablounzueta/toddgpt)
-
 # Todd-GPT
 
 A LLM-agent for Excited State Chemistry Simulations
