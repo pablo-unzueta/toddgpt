@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/pablo-unzueta/toddgpt.svg?style=shield)](https://circleci.com/gh/pablo-unzueta/toddgpt)
 [![Version](https://img.shields.io/github/v/release/pablo-unzueta/toddgpt)](https://github.com/pablo-unzueta/toddgpt/releases)
 [![License](https://img.shields.io/github/license/pablo-unzueta/toddgpt)](https://github.com/pablo-unzueta/toddgpt/blob/main/LICENSE)
-<!-- [![Documentation](https://readthedocs.org/projects/repo/badge/?version=latest)](https://repo.readthedocs.io/en/latest/?badge=latest) -->
+[![Documentation](https://readthedocs.org/projects/toddgpt/badge/?version=latest)](https://toddgpt.readthedocs.io/en/latest/?badge=latest)
 
 # Todd-GPT
 
