@@ -1,5 +1,4 @@
 [![Code Coverage](https://codecov.io/gh/pablo-unzueta/toddgpt/branch/main/graph/badge.svg)](https://codecov.io/gh/pablo-unzueta/toddgpt)
-
 [![CircleCI](https://circleci.com/gh/pablo-unzueta/toddgpt.svg?style=shield)](https://circleci.com/gh/pablo-unzueta/toddgpt)
 
 # Todd-GPT
