@@ -2,7 +2,7 @@
 
 ## TeraChem
 - [ ] Set up terachem input file
-- [ ] Run terachem input file
+- [x] Run terachem input file
 - [ ] Get data from terachem output using qcio
 - [ ] May have to make own parsers since qcio may not support all of terachem output styles
 
