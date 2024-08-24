@@ -13,6 +13,9 @@
 
 A LLM-agent for Excited State Chemistry Simulations
 
+## Roadmap
+Look at the [Roadmap.md](roadmap.md) file for a list of tasks that need to be completed for this project.
+
 ## Setup
 
 This project uses Docker for easy setup and deployment. Follow these steps to get started:
