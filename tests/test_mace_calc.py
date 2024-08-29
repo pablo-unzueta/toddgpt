@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from toddgpt.calculators.mace_calc import MaceCalculator
+from toddgpt.calculators.mace_calc import MaceCalculator, MaceCalculatorInput
 from toddgpt.tools.datatypes import AtomsDict
 
 
@@ -34,7 +34,9 @@ def test_mace_calculator_run(run_type, expected_result):
     mace_calculator = MaceCalculator()
     atoms_dict = AtomsDict(numbers=[1, 1], positions=[[0, 0, 0], [0, 0, 0.74]])
 
-    result = mace_calculator._run(atoms_dict, run_type)
+    result = mace_calculator._run(
+        MaceCalculatorInput(atoms_dict=atoms_dict, run_type=run_type)
+    )
     print(result)
 
     assert isinstance(result, dict)
@@ -48,7 +50,11 @@ def test_mace_calculator_run(run_type, expected_result):
     elif run_type == "minimize_positions":
         assert "sp_energy" in result and "minimize_positions" in result
         assert np.allclose(result["sp_energy"], expected_result["sp_energy"], atol=1e-7)
-        assert np.allclose(result["minimize_positions"], expected_result["minimize_positions"], atol=1e-7)
+        assert np.allclose(
+            result["minimize_positions"],
+            expected_result["minimize_positions"],
+            atol=1e-7,
+        )
     else:
         assert result == {}
 
@@ -58,4 +64,6 @@ def test_mace_calculator_with_invalid_atoms_dict():
     invalid_atoms_dict = AtomsDict(numbers=[1], positions=[[0, 0, 0], [0, 0, 1]])
 
     with pytest.raises(ValueError):
-        mace_calculator._run(invalid_atoms_dict, "sp_energy")
+        mace_calculator._run(
+            MaceCalculatorInput(atoms_dict=invalid_atoms_dict, run_type="sp_energy")
+        )
