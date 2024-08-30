@@ -8,7 +8,7 @@
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/pablounzueta/toddgpt)
 [![Docker Image Size](https://img.shields.io/docker/image-size/pablounzueta/toddgpt/latest)](https://hub.docker.com/r/pablounzueta/toddgpt)
 <!-- [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/pablounzueta/toddgpt?sort=date)](https://hub.docker.com/r/pablounzueta/toddgpt) -->
-
+![Demo](demo.gif)
 # Todd-GPT
 
 A LLM-agent for Excited State Chemistry Simulations
